@@ -50,3 +50,9 @@ Examples of events include:
 The goal of this project is to create a centralized community calendar where people can check existing events before selecting a date for their own event.
 
 This will help community members coordinate events more effectively and reduce scheduling conflicts within the same geographic area.
+
+## Autor 
+
+Francis Sengele
+
+https://github.com/fsengele
