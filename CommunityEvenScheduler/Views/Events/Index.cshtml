@@ -1,17 +1,25 @@
+
 @model IEnumerable<CommunityEventScheduler.Models.Event>
 
 @{
     ViewData["Title"] = "Index";
 }
 
+@* This page displays all community events.
+   Users can see event information and manage events. *@
+
 <h1>Index</h1>
 
+@* This link opens the Create Event page. *@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+@* This table displays the event information. *@
 <table class="table">
     <thead>
         <tr>
+            @* These are the table column names. *@
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -31,53 +39,68 @@
                 @Html.DisplayNameFor(model => model.Organizer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LocationId)
+                Location
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventCategoryId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventCategory)
+                Event Category
             </th>
             <th></th>
         </tr>
     </thead>
+
     <tbody>
-@foreach (var item in Model) {
+
+@* This loop displays each event from the database. *@
+@foreach (var item in Model)
+{
         <tr>
+            @* Display the event title. *@
             <td>
                 @Html.DisplayFor(model => item.Title)
             </td>
+
+            @* Display the event date. *@
             <td>
                 @Html.DisplayFor(model => item.EventDate)
             </td>
+
+            @* Display the start time. *@
             <td>
                 @Html.DisplayFor(model => item.StartTime)
             </td>
+
+            @* Display the end time. *@
             <td>
                 @Html.DisplayFor(model => item.EndTime)
             </td>
+
+            @* Display the event description. *@
             <td>
                 @Html.DisplayFor(model => item.Description)
             </td>
+
+            @* Display the event organizer. *@
             <td>
                 @Html.DisplayFor(model => item.Organizer)
             </td>
+
+            @* Display the city and state instead of LocationId.
+               If Location is null, display an empty string. *@
             <td>
-                @Html.DisplayFor(model => item.LocationId)
+                @(
+                    item.Location != null
+                        ? item.Location.City + ", " + item.Location.State
+                        : String.Empty
+                )
             </td>
+
+            @* Display the category name instead of EventCategoryId.
+               If EventCategory is null, display an empty string. *@
             <td>
-                @Html.DisplayFor(model => item.Location)
+                @(item.EventCategory != null ? item.EventCategory.Name : String.Empty)
             </td>
-            <td>
-                @Html.DisplayFor(model => item.EventCategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.EventCategory)
-            </td>
+
+            @* These links allow users to edit, view, or delete an event. *@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
