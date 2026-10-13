@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CommunityEvenScheduler.Data.Migrations
+namespace CommunityEventScheduler.Data.Migrations
 {
     /// <inheritdoc />
     public partial class CreateEvenModels : Migration

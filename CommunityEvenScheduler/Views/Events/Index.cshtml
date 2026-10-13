@@ -1,0 +1,89 @@
+@model IEnumerable<CommunityEventScheduler.Models.Event>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Organizer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventCategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventCategory)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.EventDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Organizer)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.LocationId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.EventCategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.EventCategory)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

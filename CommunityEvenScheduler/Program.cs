@@ -1,4 +1,4 @@
-using CommunityEvenScheduler.Data;
+using CommunityEventScheduler.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
