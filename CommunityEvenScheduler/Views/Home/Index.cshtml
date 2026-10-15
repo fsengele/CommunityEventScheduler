@@ -1,9 +1,55 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">COMMUNITY EVENT SCHEDULER</h1>
+@* Community Event Scheduler - Home Page *@
+<section class="community-home">
 
-    <img src="images/Flag2.jpg" alt="My Photo">
-</div>
+    @* Introduction above the flag *@
+    <div class="community-intro text-center">
+
+        <p class="community-label">
+            CONGOLESE COMMUNITY • SEATTLE, WASHINGTON
+        </p>
+
+        <h1 class="community-title">
+            Community Event Scheduler
+        </h1>
+
+        <h2 class="community-subtitle">
+            One Community. Better Planning. Stronger Connections.
+        </h2>
+
+        <p class="community-description">
+            Discover upcoming events, plan special celebrations,
+            and reserve dates with confidence.
+            Bringing the Congolese community in Washington together,
+            one event at a time.
+        </p>
+
+    </div>
+
+    @* Original Congolese flag with gentle animation *@
+    <div class="text-center community-flag">
+
+        <img src="~/images/Flag2.jpg"
+             alt="Democratic Republic of Congo Flag"
+             class="flag-animation" />
+
+    </div>
+
+    @* Rotating community messages below the flag *@
+    <div class="community-bottom text-center">
+
+        <h3 id="communityMessage">
+            Celebrating Our Culture. Connecting Our People.
+        </h3>
+
+        <p>
+            Seattle • Bellevue • Tacoma • Kent • Federal Way
+        </p>
+
+    </div>
+
+</section>

@@ -1,46 +1,61 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CommunityEvenScheduler</title>
+
+    <title>@ViewData["Title"] - Community Event Scheduler</title>
 
     <script type="importmap"></script>
 
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/CommunityEvenScheduler.styles.css" asp-append-version="true" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/CommunityEvenScheduler.styles.css"
+          asp-append-version="true" />
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
 
-                <a class="navbar-brand"
+    <!-- Main navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark ces-navbar">
+            <div class="container">
+
+                <!-- Website name -->
+                <a class="navbar-brand fw-bold"
                    asp-area=""
                    asp-controller="Home"
                    asp-action="Index">
-                    CommunityEvenScheduler
+                    🇨🇩 Community Event Scheduler
                 </a>
 
+                <!-- Mobile menu button -->
                 <button class="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
-                        data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent"
+                        data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar"
                         aria-expanded="false"
                         aria-label="Toggle navigation">
-
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <!-- Navigation links -->
+                <div class="collapse navbar-collapse" id="mainNavbar">
 
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav me-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark"
+                            <a class="nav-link"
                                asp-area=""
                                asp-controller="Home"
                                asp-action="Index">
@@ -49,26 +64,16 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-controller="Home"
-                               asp-action="Privacy">
-                                Privacy
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
+                            <a class="nav-link"
                                asp-area=""
                                asp-controller="Events"
                                asp-action="Index">
-                                Events
+                                Explore Events
                             </a>
                         </li>
 
-                        
                         <li class="nav-item">
-                            <a class="nav-link text-dark"
+                            <a class="nav-link"
                                asp-area=""
                                asp-controller="Locations"
                                asp-action="Index">
@@ -76,9 +81,18 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="Privacy">
+                                Privacy
+                            </a>
+                        </li>
 
                     </ul>
 
+                    <!-- Login and Register -->
                     <partial name="_LoginPartial" />
 
                 </div>
@@ -86,15 +100,24 @@
         </nav>
     </header>
 
+    <!-- Main page content -->
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="py-4">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - CommunityEvenScheduler -
+    <!-- Footer -->
+    <footer class="ces-footer">
+        <div class="container text-center">
+            <p class="mb-1">
+                &copy; 2026 Community Event Scheduler
+            </p>
+
+            <p class="mb-1">
+                Connecting the Congolese Community in Seattle, WA
+            </p>
+
             <a asp-area=""
                asp-controller="Home"
                asp-action="Privacy">
@@ -103,10 +126,14 @@
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

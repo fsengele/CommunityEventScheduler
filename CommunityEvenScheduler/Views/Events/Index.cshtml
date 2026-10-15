@@ -2,111 +2,180 @@
 @model IEnumerable<CommunityEventScheduler.Models.Event>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Explore Events";
 }
 
-@* This page displays all community events.
-   Users can see event information and manage events. *@
+@* Explore Events - Community Event Scheduler *@
 
-<h1>Index</h1>
+<section class="events-page">
 
-@* This link opens the Create Event page. *@
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    @* Page introduction *@
+    <div class="events-hero">
 
-@* This table displays the event information. *@
-<table class="table">
-    <thead>
-        <tr>
-            @* These are the table column names. *@
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Organizer)
-            </th>
-            <th>
-                Location
-            </th>
-            <th>
-                Event Category
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+        <p class="events-eyebrow">
+            DISCOVER • CONNECT • CELEBRATE
+        </p>
 
-    <tbody>
+        <h1>Explore Community Events</h1>
 
-@* This loop displays each event from the database. *@
-@foreach (var item in Model)
-{
-        <tr>
-            @* Display the event title. *@
-            <td>
-                @Html.DisplayFor(model => item.Title)
-            </td>
+        <p class="events-hero-description">
+            Discover celebrations, gatherings, and special
+            moments across Washington's Congolese community.
+        </p>
 
-            @* Display the event date. *@
-            <td>
-                @Html.DisplayFor(model => item.EventDate)
-            </td>
+        <a asp-action="Create" class="btn events-create-btn">
+            + Create Event
+        </a>
 
-            @* Display the start time. *@
-            <td>
-                @Html.DisplayFor(model => item.StartTime)
-            </td>
+    </div>
 
-            @* Display the end time. *@
-            <td>
-                @Html.DisplayFor(model => item.EndTime)
-            </td>
+    @* Events section *@
+    <div class="events-content">
 
-            @* Display the event description. *@
-            <td>
-                @Html.DisplayFor(model => item.Description)
-            </td>
+        <div class="events-section-heading">
 
-            @* Display the event organizer. *@
-            <td>
-                @Html.DisplayFor(model => item.Organizer)
-            </td>
+            <div>
+                <p class="events-section-label">
+                    COMMUNITY CALENDAR
+                </p>
 
-            @* Display the city and state instead of LocationId.
-               If Location is null, display an empty string. *@
-            <td>
-                @(
-                    item.Location != null
-                        ? item.Location.City + ", " + item.Location.State
-                        : String.Empty
-                )
-            </td>
+                <h2>Discover Our Events</h2>
 
-            @* Display the category name instead of EventCategoryId.
-               If EventCategory is null, display an empty string. *@
-            <td>
-                @(item.EventCategory != null ? item.EventCategory.Name : String.Empty)
-            </td>
+                <p>
+                    Find meaningful moments and connect
+                    with your community.
+                </p>
+            </div>
 
-            @* These links allow users to edit, view, or delete an event. *@
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        </div>
+
+        @* Display events from the database *@
+        @if (Model != null && Model.Any())
+        {
+            <div class="row g-4">
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-12 col-md-6 col-lg-4">
+
+                        <article class="event-card">
+
+                            @* Category and date *@
+                            <div class="event-card-top">
+
+                                <span class="event-category">
+                                    @(item.EventCategory != null
+                                        ? item.EventCategory.Name
+                                        : "Community Event")
+                                </span>
+
+                                <span class="event-date">
+                                    @item.EventDate.ToString("MMM dd, yyyy")
+                                </span>
+
+                            </div>
+
+                            @* Event information *@
+                            <div class="event-card-body">
+
+                                <h3 class="event-card-title">
+                                    @item.Title
+                                </h3>
+
+                                <p class="event-card-description">
+                                    @item.Description
+                                </p>
+
+                                <div class="event-card-info">
+
+                                    <div class="event-info-row">
+                                        <span class="event-info-icon">
+                                            📍
+                                        </span>
+
+                                        <span>
+                                            @(item.Location != null
+                                                ? item.Location.City + ", " + item.Location.State
+                                                : "Location not available")
+                                        </span>
+                                    </div>
+
+                                    <div class="event-info-row">
+                                        <span class="event-info-icon">
+                                            🕒
+                                        </span>
+
+                                        <span>
+                                            @item.StartTime - @item.EndTime
+                                        </span>
+                                    </div>
+
+                                    <div class="event-info-row">
+                                        <span class="event-info-icon">
+                                            👥
+                                        </span>
+
+                                        <span>
+                                            @item.Organizer
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            @* Event actions *@
+                            <div class="event-card-footer">
+
+                                <a asp-action="Details"
+                                   asp-route-id="@item.Id"
+                                   class="btn event-details-btn">
+                                    View Details →
+                                </a>
+
+                                <div class="event-manage-links">
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@item.Id">
+                                        Edit
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@item.Id">
+                                        Delete
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+                }
+
+            </div>
+        }
+        else
+        {
+            @* Display when there are no events *@
+            <div class="events-empty">
+
+                <h3>No Events Available Yet</h3>
+
+                <p>
+                    Community events will appear here
+                    when they are created.
+                </p>
+
+                <a asp-action="Create"
+                   class="btn events-create-btn">
+                    Create First Event
+                </a>
+
+            </div>
+        }
+
+    </div>
+
+</section>
