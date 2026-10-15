@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,14 +18,65 @@ namespace CommunityEventScheduler.Controllers
 
 
         // GET: Events
-        public async Task<IActionResult> Index()
+        // Display and filter community events.
+        public async Task<IActionResult> Index(
+            string? city,
+            int? categoryId,
+            DateTime? eventDate)
         {
-            var events = await _context.Events
+            // Start with all events.
+            var events = _context.Events
                 .Include(e => e.Location)
                 .Include(e => e.EventCategory)
+                .AsQueryable();
+
+            // Filter by city.
+            if (!string.IsNullOrWhiteSpace(city))
+            {
+                events = events.Where(e =>
+                    e.Location != null &&
+                    e.Location.City == city);
+            }
+
+            // Filter by event category.
+            if (categoryId.HasValue)
+            {
+                events = events.Where(e =>
+                    e.EventCategoryId == categoryId.Value);
+            }
+
+            // Filter by event date.
+            if (eventDate.HasValue)
+            {
+                DateTime selectedDate = eventDate.Value.Date;
+
+                events = events.Where(e =>
+                    e.EventDate.Date == selectedDate);
+            }
+
+            // Get cities for the search dropdown.
+            ViewBag.Cities = await _context.Locations
+                .Select(l => l.City)
+                .Distinct()
+                .OrderBy(c => c)
                 .ToListAsync();
 
-            return View(events);
+            // Get categories for the search dropdown.
+            ViewBag.Categories = await _context.EventCategories
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+
+            // Keep selected search values.
+            ViewBag.SelectedCity = city;
+            ViewBag.SelectedCategoryId = categoryId;
+            ViewBag.SelectedEventDate = eventDate;
+
+            // Get matching events.
+            var result = await events
+                .OrderBy(e => e.EventDate)
+                .ToListAsync();
+
+            return View(result);
         }
 
 
@@ -66,7 +118,7 @@ namespace CommunityEventScheduler.Controllers
             [Bind("Id,Title,EventDate,StartTime,EndTime,Description,Organizer,LocationId,EventCategoryId")]
             Event eventItem)
         {
-            // Location and EventCategory are selected by their IDs.
+            // Location and EventCategory are selected by IDs.
             ModelState.Remove(nameof(Event.Location));
             ModelState.Remove(nameof(Event.EventCategory));
 
@@ -189,7 +241,7 @@ namespace CommunityEventScheduler.Controllers
         }
 
 
-        // Fill Location and Category dropdowns
+        // Fill Location and Category dropdowns.
         private void PopulateDropdowns(Event? eventItem = null)
         {
             var locations = _context.Locations

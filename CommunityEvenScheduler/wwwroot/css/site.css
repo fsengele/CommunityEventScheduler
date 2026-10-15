@@ -430,3 +430,38 @@ body {
     }
 }
 
+/* Explore Events - Bootstrap filter styling */
+
+.events-content .card h2 {
+    color: #102f54;
+}
+
+.events-content .form-label {
+    color: #45566b;
+    font-size: 14px;
+}
+
+.events-content .form-select,
+.events-content .form-control {
+    border-color: #dce5f0;
+    border-radius: 8px;
+    min-height: 44px;
+}
+
+    .events-content .form-select:focus,
+    .events-content .form-control:focus {
+        border-color: #1264b1;
+        box-shadow: 0 0 0 0.2rem rgba(18, 100, 177, 0.12);
+    }
+
+.events-content .btn-primary {
+    background-color: #1264b1;
+    border-color: #1264b1;
+}
+
+    .events-content .btn-primary:hover {
+        background-color: #102f54;
+        border-color: #102f54;
+    }
+
+
