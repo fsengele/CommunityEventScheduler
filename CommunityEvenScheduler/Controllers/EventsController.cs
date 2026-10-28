@@ -110,21 +110,50 @@ namespace CommunityEventScheduler.Controllers
 
             if (ModelState.IsValid)
             {
-                string? userId = User.FindFirstValue(
-                    ClaimTypes.NameIdentifier);
+                // Check if the selected location exists.
+                var location = await _context.Locations
+                    .FindAsync(eventItem.LocationId);
 
-                if (string.IsNullOrEmpty(userId))
-                    return Challenge();
+                if (location == null)
+                {
+                    ModelState.AddModelError(
+                        nameof(Event.LocationId),
+                        "Please select a valid location.");
+                }
+                else
+                {
+                    // Check if this date is already booked in the city.
+                    bool hasConflict = await HasBookingConflict(
+                        eventItem.EventDate,
+                        eventItem.LocationId);
 
-                // The server assigns the event owner.
-                eventItem.CreatedByUserId = userId;
+                    if (hasConflict)
+                    {
+                        ModelState.AddModelError(
+                            nameof(Event.EventDate),
+                            "This date is already booked in this city. Please choose another date or location.");
+                    }
+                }
 
-                _context.Events.Add(eventItem);
-                await _context.SaveChangesAsync();
+                if (ModelState.IsValid)
+                {
+                    string? userId = User.FindFirstValue(
+                        ClaimTypes.NameIdentifier);
 
-                return RedirectToAction(nameof(Index));
+                    if (string.IsNullOrEmpty(userId))
+                        return Challenge();
+
+                    // The server assigns the event owner.
+                    eventItem.CreatedByUserId = userId;
+
+                    _context.Events.Add(eventItem);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
+            // Return to the form if there is an error.
             PopulateDropdowns(eventItem);
             return View(eventItem);
         }
@@ -185,7 +214,6 @@ namespace CommunityEventScheduler.Controllers
                 existingEvent.EventCategoryId = eventItem.EventCategoryId;
 
                 // CreatedByUserId is never changed here.
-
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -238,8 +266,8 @@ namespace CommunityEventScheduler.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Check if another event is booked on the same date
-        // in the same city.
+        // Check for another event on the same date
+        // in the same city and state.
         private async Task<bool> HasBookingConflict(
             DateTime eventDate,
             int locationId,
@@ -252,7 +280,7 @@ namespace CommunityEventScheduler.Controllers
             if (location == null)
                 return false;
 
-            // Check for another event in the same city.
+            // Check if another event is already booked.
             return await _context.Events.AnyAsync(e =>
                 e.EventDate.Date == eventDate.Date &&
                 e.Location != null &&
