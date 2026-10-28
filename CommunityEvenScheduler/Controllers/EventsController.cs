@@ -238,6 +238,30 @@ namespace CommunityEventScheduler.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Check if another event is booked on the same date
+        // in the same city.
+        private async Task<bool> HasBookingConflict(
+            DateTime eventDate,
+            int locationId,
+            int? excludeEventId = null)
+        {
+            // Find the selected location.
+            var location = await _context.Locations
+                .FindAsync(locationId);
+
+            if (location == null)
+                return false;
+
+            // Check for another event in the same city.
+            return await _context.Events.AnyAsync(e =>
+                e.EventDate.Date == eventDate.Date &&
+                e.Location != null &&
+                e.Location.City == location.City &&
+                e.Location.State == location.State &&
+                (!excludeEventId.HasValue ||
+                 e.Id != excludeEventId.Value));
+        }
+
         // Check if the logged-in user owns this event.
         // Admin access works when the Admin role is configured.
         private bool CanManageEvent(Event eventItem)
