@@ -11,6 +11,7 @@ namespace CommunityEventScheduler.Models
         public string Title { get; set; } = string.Empty;
 
         [Required]
+        
         public DateTime EventDate { get; set; }
 
         [Required]
@@ -20,8 +21,10 @@ namespace CommunityEventScheduler.Models
         public TimeSpan EndTime { get; set; }
 
         [Required]
+        [MaxLength(500)]
         public string Description { get; set; } = string.Empty;
 
+        [StringLength(50)]
         public string Organizer { get; set; } = string.Empty;
 
         public int LocationId { get; set; }

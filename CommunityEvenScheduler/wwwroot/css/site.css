@@ -464,4 +464,90 @@ body {
         border-color: #102f54;
     }
 
+/* EVENT DETAILS PAGE*/
 
+.event-details-hero {
+    background: linear-gradient(135deg, #102f54, #1264b1);
+}
+
+    .event-details-hero h1 {
+        color: white;
+    }
+
+/* ==========================================
+   COMMUNITY EVENT SCHEDULER
+   EDIT EVENT PAGE
+   ========================================== */
+
+/* Page background */
+
+.event-edit-page {
+    background-color: #f4f8fd;
+    border-radius: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Page header */
+
+.event-edit-hero {
+    background: linear-gradient(135deg, #102f54, #1264b1);
+    color: white;
+}
+
+    .event-edit-hero h1 {
+        color: white;
+    }
+
+    .event-edit-hero p {
+        color: #e0eaf9;
+    }
+
+/* Form labels */
+
+.event-edit-page .form-label {
+    color: #45566b;
+    font-size: 14px;
+}
+
+/* Form inputs */
+
+.event-edit-page .form-control,
+.event-edit-page .form-select {
+    border: 1px solid #dce5f0;
+    border-radius: 8px;
+    min-height: 44px;
+}
+
+    /* Input focus */
+
+    .event-edit-page .form-control:focus,
+    .event-edit-page .form-select:focus {
+        border-color: #1264b1;
+        box-shadow: 0 0 0 0.2rem rgba(18, 100, 177, 0.12);
+    }
+
+/* Save button */
+
+.event-save-btn {
+    background-color: #1264b1;
+    border: 1px solid #1264b1;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+    .event-save-btn:hover {
+        background-color: #102f54;
+        border-color: #102f54;
+        color: white;
+    }
+
+/* Mobile */
+
+@media (max-width: 576px) {
+    .event-edit-page {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
