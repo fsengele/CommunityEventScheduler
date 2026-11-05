@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace CommunityEventScheduler.Models
@@ -11,7 +12,6 @@ namespace CommunityEventScheduler.Models
         public string Title { get; set; } = string.Empty;
 
         [Required]
-        
         public DateTime EventDate { get; set; }
 
         [Required]
@@ -35,7 +35,16 @@ namespace CommunityEventScheduler.Models
 
         public EventCategory EventCategory { get; set; } = null!;
 
-        // Identity user who created this event
+        // Identity user who created this event.
         public string? CreatedByUserId { get; set; }
+
+        // Shows the current booking status.
+        public string BookingStatus { get; set; } = "Pending";
+
+        // Shows the current payment status.
+        public string PaymentStatus { get; set; } = "Unpaid";
+
+        // Saves when the booking was created.
+        public DateTime BookingCreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
