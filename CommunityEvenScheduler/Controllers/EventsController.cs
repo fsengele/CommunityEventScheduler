@@ -87,6 +87,78 @@ namespace CommunityEventScheduler.Controllers
             return View(bookings);
         }
 
+        // Admin can approve a pending booking.
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApproveBooking(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var eventItem = await _context.Events.FindAsync(id);
+
+            if (eventItem == null)
+                return NotFound();
+
+            // Only pending bookings can be approved.
+            if (eventItem.BookingStatus != "Pending")
+                return BadRequest("Only pending bookings can be approved.");
+
+            eventItem.BookingStatus = "Approved";
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Bookings));
+        }
+
+        // Admin can reject a pending booking.
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RejectBooking(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var eventItem = await _context.Events.FindAsync(id);
+
+            if (eventItem == null)
+                return NotFound();
+
+            // Only pending bookings can be rejected.
+            if (eventItem.BookingStatus != "Pending")
+                return BadRequest("Only pending bookings can be rejected.");
+
+            eventItem.BookingStatus = "Rejected";
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Bookings));
+        }
+
+        // Admin can cancel an approved booking.
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelBooking(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var eventItem = await _context.Events.FindAsync(id);
+
+            if (eventItem == null)
+                return NotFound();
+
+            // Only approved bookings can be cancelled.
+            if (eventItem.BookingStatus != "Approved")
+                return BadRequest("Only approved bookings can be cancelled.");
+
+            eventItem.BookingStatus = "Cancelled";
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Bookings));
+        }
+
         // Everyone can see event details.
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
