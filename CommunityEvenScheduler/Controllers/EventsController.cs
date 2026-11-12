@@ -72,6 +72,21 @@ namespace CommunityEventScheduler.Controllers
             return View(result);
         }
 
+        // Only admins can see all bookings.
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Bookings()
+        {
+            // Get all bookings with location and category.
+            var bookings = await _context.Events
+                .Include(e => e.Location)
+                .Include(e => e.EventCategory)
+                .OrderByDescending(e => e.BookingCreatedAt)
+                .ToListAsync();
+
+            // Send the bookings to the view.
+            return View(bookings);
+        }
+
         // Everyone can see event details.
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
@@ -145,6 +160,15 @@ namespace CommunityEventScheduler.Controllers
 
                     // The server assigns the event owner.
                     eventItem.CreatedByUserId = userId;
+
+                    // A new booking starts as Pending.
+                    eventItem.BookingStatus = "Pending";
+
+                    // Payment starts as Unpaid.
+                    eventItem.PaymentStatus = "Unpaid";
+
+                    // Save when the booking was created.
+                    eventItem.BookingCreatedAt = DateTime.UtcNow;
 
                     _context.Events.Add(eventItem);
                     await _context.SaveChangesAsync();

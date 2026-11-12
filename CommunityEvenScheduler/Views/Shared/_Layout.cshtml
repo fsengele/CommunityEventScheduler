@@ -54,6 +54,7 @@
 
                     <ul class="navbar-nav me-auto">
 
+                        <!-- Home -->
                         <li class="nav-item">
                             <a class="nav-link"
                                asp-area=""
@@ -63,6 +64,7 @@
                             </a>
                         </li>
 
+                        <!-- Explore Events -->
                         <li class="nav-item">
                             <a class="nav-link"
                                asp-area=""
@@ -72,6 +74,7 @@
                             </a>
                         </li>
 
+                        <!-- Locations -->
                         <li class="nav-item">
                             <a class="nav-link"
                                asp-area=""
@@ -81,12 +84,28 @@
                             </a>
                         </li>
 
+                        <!-- Event Categories -->
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-area=""
+                               asp-controller="EventCategories"
+                               asp-action="Index">
+                                Event Categories
+                            </a>
+                        </li>
 
-                        <a class="nav-link text-dark"
-                           asp-controller="EventCategories"
-                           asp-action="Index">
-                            Event Categories
-                        </a>
+                        <!-- Only admins can see Booking Management -->
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-area=""
+                                   asp-controller="Events"
+                                   asp-action="Bookings">
+                                    Booking Management
+                                </a>
+                            </li>
+                        }
 
                     </ul>
 
@@ -108,6 +127,7 @@
     <!-- Footer -->
     <footer class="ces-footer">
         <div class="container text-center">
+
             <p class="mb-1">
                 &copy; 2026 Community Event Scheduler
             </p>
@@ -121,6 +141,7 @@
                asp-action="Privacy">
                 Privacy
             </a>
+
         </div>
     </footer>
 
@@ -129,7 +150,8 @@
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js"
+            asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CommunityEventScheduler.Models.Event>
+
+@{
+    ViewData["Title"] = "Booking Management";
+}
+
+<div class="container mt-4">
+    <h2>Booking Management</h2>
+
+    <p class="text-muted">
+        View and manage community event bookings.
+    </p>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>City</th>
+                <th>Booking Status</th>
+                <th>Payment Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.EventDate.ToString("MM/dd/yyyy")</td>
+                    <td>@item.Location?.City</td>
+                    <td>@item.BookingStatus</td>
+                    <td>@item.PaymentStatus</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
