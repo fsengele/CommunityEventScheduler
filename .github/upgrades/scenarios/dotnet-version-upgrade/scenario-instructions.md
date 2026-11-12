@@ -33,3 +33,6 @@
 - Verify the .NET 11 preview SDK before editing project files.
 - Restore and build after the upgrade, fixing all compilation errors and warnings.
 - Run tests only after the atomic upgrade builds successfully.
+
+## Build Tool Decisions
+- **CommunityEvenScheduler/CommunityEventScheduler.csproj**: dotnet build (SDK-style modern .NET project with no special build requirements)
