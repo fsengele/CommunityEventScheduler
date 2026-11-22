@@ -1,5 +1,6 @@
 
 using CommunityEventScheduler.Data;
+using CommunityEventScheduler.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -78,6 +79,63 @@ if (app.Environment.IsDevelopment())
                 throw new InvalidOperationException(
                     "Could not assign the Admin role.");
             }
+        }
+    }
+}
+
+// ------------------------------------------------------
+// NEW: PAYMENT PLAN SETUP
+// Add the first payment plans to the database.
+// This setup is for local development.
+// ------------------------------------------------------
+
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        // NEW: Get the database context.
+        var db = scope.ServiceProvider
+            .GetRequiredService<ApplicationDbContext>();
+
+        // NEW: Check if payment plans already exist.
+        if (!await db.PaymentPlans.AnyAsync())
+        {
+            // NEW: Create the first three payment plans.
+            var paymentPlans = new List<PaymentPlan>
+            {
+                new PaymentPlan
+                {
+                    Name = "Basic",
+                    Description = "Basic event reservation",
+                    Price = 10.00m,
+                    IsActive = true,
+                    DisplayOrder = 1
+                },
+
+                new PaymentPlan
+                {
+                    Name = "Standard",
+                    Description = "Standard event reservation",
+                    Price = 50.00m,
+                    IsActive = true,
+                    DisplayOrder = 2
+                },
+
+                new PaymentPlan
+                {
+                    Name = "Premium",
+                    Description = "Premium event reservation",
+                    Price = 100.00m,
+                    IsActive = true,
+                    DisplayOrder = 3
+                }
+            };
+
+            // NEW: Add the payment plans to the database.
+            await db.PaymentPlans.AddRangeAsync(paymentPlans);
+
+            // NEW: Save the payment plans in SQL Server.
+            await db.SaveChangesAsync();
         }
     }
 }
