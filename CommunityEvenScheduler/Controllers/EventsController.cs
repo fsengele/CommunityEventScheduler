@@ -72,6 +72,93 @@ namespace CommunityEventScheduler.Controllers
             return View(result);
         }
 
+        // Only admins can see all bookings.
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Bookings()
+        {
+            // Get all bookings with location and category.
+            var bookings = await _context.Events
+                .Include(e => e.Location)
+                .Include(e => e.EventCategory)
+                .OrderByDescending(e => e.BookingCreatedAt)
+                .ToListAsync();
+
+            // Send the bookings to the view.
+            return View(bookings);
+        }
+
+        // Admin can approve a pending booking.
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApproveBooking(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var eventItem = await _context.Events.FindAsync(id);
+
+            if (eventItem == null)
+                return NotFound();
+
+            // Only pending bookings can be approved.
+            if (eventItem.BookingStatus != "Pending")
+                return BadRequest("Only pending bookings can be approved.");
+
+            eventItem.BookingStatus = "Approved";
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Bookings));
+        }
+
+        // Admin can reject a pending booking.
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RejectBooking(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var eventItem = await _context.Events.FindAsync(id);
+
+            if (eventItem == null)
+                return NotFound();
+
+            // Only pending bookings can be rejected.
+            if (eventItem.BookingStatus != "Pending")
+                return BadRequest("Only pending bookings can be rejected.");
+
+            eventItem.BookingStatus = "Rejected";
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Bookings));
+        }
+
+        // Admin can cancel an approved booking.
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelBooking(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var eventItem = await _context.Events.FindAsync(id);
+
+            if (eventItem == null)
+                return NotFound();
+
+            // Only approved bookings can be cancelled.
+            if (eventItem.BookingStatus != "Approved")
+                return BadRequest("Only approved bookings can be cancelled.");
+
+            eventItem.BookingStatus = "Cancelled";
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Bookings));
+        }
+
         // Everyone can see event details.
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
@@ -110,21 +197,59 @@ namespace CommunityEventScheduler.Controllers
 
             if (ModelState.IsValid)
             {
-                string? userId = User.FindFirstValue(
-                    ClaimTypes.NameIdentifier);
+                // Check if the selected location exists.
+                var location = await _context.Locations
+                    .FindAsync(eventItem.LocationId);
 
-                if (string.IsNullOrEmpty(userId))
-                    return Challenge();
+                if (location == null)
+                {
+                    ModelState.AddModelError(
+                        nameof(Event.LocationId),
+                        "Please select a valid location.");
+                }
+                else
+                {
+                    // Check if this date is already booked in the city.
+                    bool hasConflict = await HasBookingConflict(
+                        eventItem.EventDate,
+                        eventItem.LocationId);
 
-                // The server assigns the event owner.
-                eventItem.CreatedByUserId = userId;
+                    if (hasConflict)
+                    {
+                        ModelState.AddModelError(
+                            nameof(Event.EventDate),
+                            "This date is already booked in this city. Please choose another date or location.");
+                    }
+                }
 
-                _context.Events.Add(eventItem);
-                await _context.SaveChangesAsync();
+                if (ModelState.IsValid)
+                {
+                    string? userId = User.FindFirstValue(
+                        ClaimTypes.NameIdentifier);
 
-                return RedirectToAction(nameof(Index));
+                    if (string.IsNullOrEmpty(userId))
+                        return Challenge();
+
+                    // The server assigns the event owner.
+                    eventItem.CreatedByUserId = userId;
+
+                    // A new booking starts as Pending.
+                    eventItem.BookingStatus = "Pending";
+
+                    // Payment starts as Unpaid.
+                    eventItem.PaymentStatus = "Unpaid";
+
+                    // Save when the booking was created.
+                    eventItem.BookingCreatedAt = DateTime.UtcNow;
+
+                    _context.Events.Add(eventItem);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
+            // Return to the form if there is an error.
             PopulateDropdowns(eventItem);
             return View(eventItem);
         }
@@ -185,7 +310,6 @@ namespace CommunityEventScheduler.Controllers
                 existingEvent.EventCategoryId = eventItem.EventCategoryId;
 
                 // CreatedByUserId is never changed here.
-
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -236,6 +360,30 @@ namespace CommunityEventScheduler.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        // Check for another event on the same date
+        // in the same city and state.
+        private async Task<bool> HasBookingConflict(
+            DateTime eventDate,
+            int locationId,
+            int? excludeEventId = null)
+        {
+            // Find the selected location.
+            var location = await _context.Locations
+                .FindAsync(locationId);
+
+            if (location == null)
+                return false;
+
+            // Check if another event is already booked.
+            return await _context.Events.AnyAsync(e =>
+                e.EventDate.Date == eventDate.Date &&
+                e.Location != null &&
+                e.Location.City == location.City &&
+                e.Location.State == location.State &&
+                (!excludeEventId.HasValue ||
+                 e.Id != excludeEventId.Value));
         }
 
         // Check if the logged-in user owns this event.

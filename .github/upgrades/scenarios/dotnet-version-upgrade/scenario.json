@@ -1,0 +1,15 @@
+{
+  "scenarioId": "dotnet-version-upgrade",
+  "operationId": "84aa4d91-e2c0-4368-9a82-f877c504c43a",
+  "description": "Upgrade .NET projects to newer .NET versions, including guidance on current release status, support lifecycle (LTS/STS), and recommended upgrade targets.",
+  "startTime": "2026-11-12T19:21:18.6989221Z",
+  "lastUpdateTime": "2026-11-12T19:31:08.7397026Z",
+  "properties": {
+    "UpgradeTargetFramework": "net11.0",
+    "taskStates": {
+      "01-upgrade-razor-pages-app": "Completed",
+      "02-validate-solution": "Completed"
+    }
+  },
+  "folderPath": ""
+}

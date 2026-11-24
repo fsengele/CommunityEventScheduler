@@ -1,0 +1,164 @@
+﻿
+@model IEnumerable<CommunityEventScheduler.Models.Event>
+
+@{
+    ViewData["Title"] = "Booking Management";
+}
+
+<div class="container mt-4">
+    <h2>Booking Management</h2>
+
+    <p class="text-muted">
+        View and manage community event bookings.
+    </p>
+
+    <!-- NEW: Make the table responsive on small screens. -->
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>City</th>
+                    <th>Booking Status</th>
+                    <th>Payment Status</th>
+
+                    <!-- NEW: Add a column for admin buttons. -->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+
+                        <td>
+                            @item.EventDate.ToString("MM/dd/yyyy")
+                        </td>
+
+                        <td>@item.Location?.City</td>
+
+                        <td>
+                            <!-- NEW: Check the booking status. -->
+                            @if (item.BookingStatus == "Pending")
+                            {
+                                <!-- Show yellow for pending bookings. -->
+                                <span class="badge bg-warning text-dark">
+                                    Pending
+                                </span>
+                            }
+                            else if (item.BookingStatus == "Approved")
+                            {
+                                <!-- Show green for approved bookings. -->
+                                <span class="badge bg-success">
+                                    Approved
+                                </span>
+                            }
+                            else if (item.BookingStatus == "Rejected")
+                            {
+                                <!-- Show red for rejected bookings. -->
+                                <span class="badge bg-danger">
+                                    Rejected
+                                </span>
+                            }
+                            else if (item.BookingStatus == "Cancelled")
+                            {
+                                <!-- Show gray for cancelled bookings. -->
+                                <span class="badge bg-secondary">
+                                    Cancelled
+                                </span>
+                            }
+                            else
+                            {
+                                <!-- Show the status if it is different. -->
+                                <span>@item.BookingStatus</span>
+                            }
+                        </td>
+
+                        <td>@item.PaymentStatus</td>
+
+                        <td>
+                            <!-- NEW: Show buttons based on booking status. -->
+                            @if (item.BookingStatus == "Pending")
+                            {
+                                <!-- NEW: Admin can approve a pending booking. -->
+                                <form asp-controller="Events"
+                                      asp-action="ApproveBooking"
+                                      method="post"
+                                      class="d-inline">
+
+                                    <!-- Protect the form request. -->
+                                    @Html.AntiForgeryToken()
+
+                                    <!-- Send the selected booking ID. -->
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@item.Id" />
+
+                                    <!-- Green Approve button. -->
+                                    <button type="submit"
+                                            class="btn btn-success btn-sm">
+                                        Approve
+                                    </button>
+                                </form>
+
+                                <!-- NEW: Admin can reject a pending booking. -->
+                                <form asp-controller="Events"
+                                      asp-action="RejectBooking"
+                                      method="post"
+                                      class="d-inline">
+
+                                    <!-- Protect the form request. -->
+                                    @Html.AntiForgeryToken()
+
+                                    <!-- Send the selected booking ID. -->
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@item.Id" />
+
+                                    <!-- Red Reject button. -->
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm">
+                                        Reject
+                                    </button>
+                                </form>
+                            }
+                            else if (item.BookingStatus == "Approved")
+                            {
+                                <!-- NEW: Admin can cancel an approved booking. -->
+                                <form asp-controller="Events"
+                                      asp-action="CancelBooking"
+                                      method="post"
+                                      class="d-inline">
+
+                                    <!-- Protect the form request. -->
+                                    @Html.AntiForgeryToken()
+
+                                    <!-- Send the selected booking ID. -->
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@item.Id" />
+
+                                    <!-- Gray Cancel button. -->
+                                    <button type="submit"
+                                            class="btn btn-secondary btn-sm">
+                                        Cancel
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <!-- No buttons for rejected or cancelled bookings. -->
+                                <span class="text-muted">
+                                    No actions
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

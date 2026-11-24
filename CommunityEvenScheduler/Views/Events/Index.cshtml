@@ -1,19 +1,28 @@
-
+@* This page receives the events from EventsController. *@
 @model IEnumerable<CommunityEventScheduler.Models.Event>
 
 @{
     ViewData["Title"] = "Explore Events";
 
+    // Get the cities for the search dropdown.
     var cities = ViewBag.Cities as List<string>
         ?? new List<string>();
 
+    // Get the event categories for the search dropdown.
     var categories = ViewBag.Categories
         as List<CommunityEventScheduler.Models.EventCategory>
         ?? new List<CommunityEventScheduler.Models.EventCategory>();
 
+    // Keep the user's selected filters after a search.
     string? selectedCity = ViewBag.SelectedCity;
     int? selectedCategoryId = ViewBag.SelectedCategoryId;
     DateTime? selectedEventDate = ViewBag.SelectedEventDate;
+
+    // THE CALANDAR ON THE SELECTED DATE,THE FIRST EVENT DATE.
+
+    var calendarInitialDate = selectedEventDate
+        ?? Model?.OrderBy(e => e.EventDate).FirstOrDefault()?.EventDate
+        ?? DateTime.Today;
 }
 
 @* Explore Events - Community Event Scheduler *@
@@ -178,6 +187,49 @@
 
         </div>
 
+        @* MONTHLY CALENDAR
+           SHOW THE SAME EVENTS THAT APPEAR IN THE EVENT CARDS BELOW.
+           //I do not need a new controller action for this calendar. *@
+        <section class="community-calendar card border-0 shadow-sm rounded-4 mb-5"
+                 id="communityCalendar"
+                 data-initial-date="@calendarInitialDate.ToString("yyyy-MM-dd")">
+            <div class="card-body p-4">
+                @* Calendar title and month navigation buttons. *@
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+                    <div>
+                        <h2 class="h4 fw-bold mb-1">Event Calendar</h2>
+                        <p class="text-muted mb-0">
+                            View the events from your current search on a monthly calendar.
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" id="calendarPrev" class="btn btn-outline-secondary btn-sm"
+                                aria-label="Previous month">
+                            ←
+                        </button>
+                        <button type="button" id="calendarToday" class="btn btn-outline-secondary btn-sm">
+                            Today
+                        </button>
+                        <button type="button" id="calendarNext" class="btn btn-outline-secondary btn-sm"
+                                aria-label="Next month">
+                            →
+                        </button>
+                    </div>
+                </div>
+                @* JavaScript writes the current month and year here. *@
+                <h3 class="h5 fw-semibold mb-3" id="calendarMonth" aria-live="polite"></h3>
+                @* JavaScript creates the calendar days inside calendarGrid. *@
+                <div class="community-calendar-scroll">
+                    <div class="community-calendar-grid" id="calendarGrid"
+                         aria-label="Monthly event calendar"></div>
+                </div>
+                @* This message appears if the displayed month has no matching events. *@
+                <p id="calendarEmpty" class="text-muted small mt-3 mb-0" hidden>
+                    No matching events in this month.
+                </p>
+            </div>
+        </section>
+
         @* Events section *@
         <div class="events-section-heading">
 
@@ -203,7 +255,9 @@
                 {
                     <div class="col-12 col-md-6 col-lg-4">
 
-                        <article class="event-card">
+                        @* The date helps JavaScript put this event on the calendar. *@
+                        <article class="event-card"
+                                 data-event-date="@item.EventDate.ToString("yyyy-MM-dd")">
 
                             @* Category and date *@
                             <div class="event-card-top">
@@ -325,3 +379,198 @@
     </div>
 
 </section>
+
+@* CALENDAR STYLES ARE SCOPED SO THE EXISTING EVENT CARDS AND FILTERS KEEP THEIR DESIGN. *@
+<style>
+    /* Allow horizontal scrolling on small screens. */
+    .community-calendar-scroll { overflow-x: auto; }
+    /* Seven columns: one for each day of the week. */
+    .community-calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 5px;
+        min-width: 630px;
+    }
+    .community-calendar-weekday {
+        text-align: center;
+        padding: 10px 3px;
+        font-size: .85rem;
+        font-weight: 600;
+        color: #596579;
+    }
+    /* Each calendar day is a box. */
+    .community-calendar-day {
+        min-height: 105px;
+        padding: 7px;
+        border: 1px solid #e1e7f0;
+        border-radius: 8px;
+        background: #fff;
+        overflow-wrap: anywhere;
+    }
+    /* Highlight today so it is easy to find. */
+    .community-calendar-day.is-today {
+        border: 2px solid #0d6efd;
+        background: #f3f8ff;
+    }
+    .community-calendar-day.is-outside { background: #f7f9fc; }
+    .community-calendar-number {
+        display: block;
+        font-size: .85rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    /* Event links use a light blue background. */
+    .community-calendar-event {
+        display: block;
+        padding: 4px 6px;
+        margin-bottom: 4px;
+        border-radius: 5px;
+        background: #e7f1ff;
+        color: #084298;
+        font-size: .78rem;
+        text-decoration: none;
+        line-height: 1.25;
+    }
+    .community-calendar-event:hover {
+        background: #cfe2ff;
+        text-decoration: underline;
+    }
+    .community-calendar-more {
+        font-size: .75rem;
+        color: #596579;
+    }
+</style>
+
+<script>
+    // Wait until the page is ready before building the calendar.
+    document.addEventListener("DOMContentLoaded", function () {
+        const calendar = document.getElementById("communityCalendar");
+        if (!calendar) return;
+
+        const grid = document.getElementById("calendarGrid");
+        const monthTitle = document.getElementById("calendarMonth");
+        const emptyMessage = document.getElementById("calendarEmpty");
+        // Read the starting date sent by the Razor page.
+        const initialParts = calendar.dataset.initialDate.split("-").map(Number);
+        let year = initialParts[0];
+        let month = initialParts[1] - 1;
+
+        // Read the same events used for the cards below. No new controller is needed.
+        const eventsByDate = new Map();
+        document.querySelectorAll(".event-card[data-event-date]").forEach(function (card) {
+            const date = card.dataset.eventDate;
+            const title = card.querySelector(".event-card-title")?.textContent.trim() || "Event";
+            const url = card.querySelector(".event-details-btn")?.getAttribute("href");
+            if (!date || !url) return;
+            if (!eventsByDate.has(date)) eventsByDate.set(date, []);
+            eventsByDate.get(date).push({ title: title, url: url });
+        });
+
+        // Day names shown at the top of the calendar.
+        const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        // Draw the calendar for the selected month.
+        function renderCalendar() {
+            grid.replaceChildren();
+            monthTitle.textContent = new Intl.DateTimeFormat("en-US", {
+                month: "long", year: "numeric"
+            }).format(new Date(year, month, 1));
+
+            weekdays.forEach(function (weekday) {
+                const heading = document.createElement("div");
+                heading.className = "community-calendar-weekday";
+                heading.textContent = weekday;
+                grid.appendChild(heading);
+            });
+
+            // Find the first weekday and the number of days in this month.
+            const firstWeekday = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            let eventsThisMonth = 0;
+
+            // Add empty boxes before the first day of the month.
+            for (let i = 0; i < firstWeekday; i++) {
+                const blank = document.createElement("div");
+                blank.className = "community-calendar-day is-outside";
+                grid.appendChild(blank);
+            }
+
+            // Create one box for each day and add its event links.
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement("div");
+                cell.className = "community-calendar-day";
+                if (year === today.getFullYear() &&
+                    month === today.getMonth() && day === today.getDate()) {
+                    cell.classList.add("is-today");
+                }
+
+                const number = document.createElement("span");
+                number.className = "community-calendar-number";
+                number.textContent = day;
+                cell.appendChild(number);
+
+                const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+                const events = eventsByDate.get(dateKey) || [];
+                eventsThisMonth += events.length;
+
+                // Show up to three events inside one day.
+                events.slice(0, 3).forEach(function (event) {
+                    const link = document.createElement("a");
+                    link.className = "community-calendar-event";
+                    link.href = event.url;
+                    // Use textContent to display the title as text, not HTML.
+                    link.textContent = event.title;
+                    link.title = event.title;
+                    cell.appendChild(link);
+                });
+
+                // If there are more events, tell the user to see the list below.
+                if (events.length > 3) {
+                    const more = document.createElement("span");
+                    more.className = "community-calendar-more";
+                    more.textContent = `+${events.length - 3} more (see list below)`;
+                    cell.appendChild(more);
+                }
+                grid.appendChild(cell);
+            }
+
+            // Add empty boxes at the end to complete the last week.
+            const usedCells = firstWeekday + daysInMonth;
+            const trailingBlanks = (7 - (usedCells % 7)) % 7;
+            for (let i = 0; i < trailingBlanks; i++) {
+                const blank = document.createElement("div");
+                blank.className = "community-calendar-day is-outside";
+                grid.appendChild(blank);
+            }
+
+            // Show or hide the empty-month message.
+            emptyMessage.hidden = eventsThisMonth > 0;
+        }
+
+        // Move to the previous month.
+        document.getElementById("calendarPrev").addEventListener("click", function () {
+            const previous = new Date(year, month - 1, 1);
+            year = previous.getFullYear();
+            month = previous.getMonth();
+            renderCalendar();
+        });
+        // Move to the next month.
+        document.getElementById("calendarNext").addEventListener("click", function () {
+            const next = new Date(year, month + 1, 1);
+            year = next.getFullYear();
+            month = next.getMonth();
+            renderCalendar();
+        });
+        // Return to the current month.
+        document.getElementById("calendarToday").addEventListener("click", function () {
+            const today = new Date();
+            year = today.getFullYear();
+            month = today.getMonth();
+            renderCalendar();
+        });
+
+        // Show the calendar when the page opens.
+        renderCalendar();
+    });
+</script>

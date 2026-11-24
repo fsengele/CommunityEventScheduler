@@ -1,87 +1,184 @@
+
 @model CommunityEventScheduler.Models.Event
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Event Details";
+
+    // Get the logged-in user's ID.
+    string? currentUserId = User.FindFirst(
+        System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+    // Only the event owner or Admin can edit.
+    bool canEdit = !string.IsNullOrEmpty(currentUserId) &&
+        (User.IsInRole("Admin") ||
+         Model.CreatedByUserId == currentUserId);
+
+    // Format the event date and time.
+    string eventDate = Model.EventDate.ToString("MMMM dd, yyyy");
+
+    string startTime = DateTime.Today
+        .Add(Model.StartTime).ToString("h:mm tt");
+
+    string endTime = DateTime.Today
+        .Add(Model.EndTime).ToString("h:mm tt");
+
+    // Show the city and state instead of the Location ID.
+    string eventLocation = Model.Location != null
+        ? $"{Model.Location.City}, {Model.Location.State}"
+        : "Location not available";
+
+    // Show the category name instead of the Category ID.
+    string eventCategory = Model.EventCategory?.Name
+        ?? "Community Event";
 }
 
-<h1>Details</h1>
+@* Main event details page *@
+<div class="container py-5">
 
-<div>
-    <h4>Event</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventDate)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartTime)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EndTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EndTime)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Organizer)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Organizer)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LocationId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LocationId)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventCategoryId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventCategoryId)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventCategory)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventCategory)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @* Back to the events page *@
+    <div class="mb-4">
+        <a asp-controller="Events"
+           asp-action="Index"
+           class="text-decoration-none fw-semibold"
+           style="color: #1264b1;">
+            Back to Events
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+
+        @* Event title and category *@
+        <div class="event-details-hero text-white p-4 p-md-5">
+
+            <span class="badge bg-light mb-3 px-3 py-2"
+                  style="color: #1264b1;">
+                @eventCategory
+            </span>
+
+            <h1 class="display-5 fw-bold mb-3">
+                @Model.Title
+            </h1>
+
+            <p class="mb-0" style="color: #e0eaf9;">
+                Community Event Scheduler
+            </p>
+
+        </div>
+
+        @* Event information *@
+        <div class="card-body p-4 p-md-5">
+
+            <h2 class="h4 fw-bold mb-4"
+                style="color: #102f54;">
+                Event Information
+            </h2>
+
+            <div class="row g-4 mb-5">
+
+                @* Event date *@
+                <div class="col-12 col-md-6">
+                    <div class="bg-light rounded-3 p-4 h-100">
+
+                        <h3 class="h6 text-muted mb-2">
+                            Event Date
+                        </h3>
+
+                        <p class="fw-semibold fs-5 mb-0">
+                            @eventDate
+                        </p>
+
+                    </div>
+                </div>
+
+                @* Event time *@
+                <div class="col-12 col-md-6">
+                    <div class="bg-light rounded-3 p-4 h-100">
+
+                        <h3 class="h6 text-muted mb-2">
+                            Event Time
+                        </h3>
+
+                        <p class="fw-semibold fs-5 mb-0">
+                            @startTime - @endTime
+                        </p>
+
+                    </div>
+                </div>
+
+                @* Event location *@
+                <div class="col-12 col-md-6">
+                    <div class="bg-light rounded-3 p-4 h-100">
+
+                        <h3 class="h6 text-muted mb-2">
+                            Location
+                        </h3>
+
+                        <p class="fw-semibold fs-5 mb-0">
+                            @eventLocation
+                        </p>
+
+                    </div>
+                </div>
+
+                @* Event organizer *@
+                <div class="col-12 col-md-6">
+                    <div class="bg-light rounded-3 p-4 h-100">
+
+                        <h3 class="h6 text-muted mb-2">
+                            Organizer
+                        </h3>
+
+                        <p class="fw-semibold fs-5 mb-0">
+                            @(string.IsNullOrWhiteSpace(Model.Organizer)
+                                ? "Not specified"
+                                : Model.Organizer)
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+
+            @* Event description *@
+            <div class="mb-5">
+
+                <h2 class="h4 fw-bold mb-3"
+                    style="color: #102f54;">
+                    About This Event
+                </h2>
+
+                <hr />
+
+                <p class="text-secondary lh-lg"
+                   style="white-space: pre-line;">@Model.Description</p>
+
+            </div>
+
+            @* Navigation and edit buttons *@
+            <div class="d-flex flex-wrap gap-3">
+
+                <a asp-controller="Events"
+                   asp-action="Index"
+                   class="btn text-white px-4 py-2"
+                   style="background-color: #1264b1;">
+                    Explore More Events
+                </a>
+
+                @* Show Edit only to the owner or Admin *@
+                @if (canEdit)
+                {
+                    <a asp-controller="Events"
+                       asp-action="Edit"
+                       asp-route-id="@Model.Id"
+                       class="btn btn-outline-secondary px-4 py-2">
+                        Edit Event
+                    </a>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>

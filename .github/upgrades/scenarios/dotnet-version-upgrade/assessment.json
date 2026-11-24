@@ -1,0 +1,589 @@
+{
+  "settings": {
+    "components": {
+      "code": true,
+      "binaries": false
+    },
+    "targetId": "net11.0",
+    "targetDisplayName": ".NETCoreApp,Version=v11.0"
+  },
+  "analysisStartTime": "2026-11-12T19:21:31.6976633Z",
+  "analysisEndTime": "2026-11-12T19:21:36.2370239Z",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
+  "stats": {
+    "summary": {
+      "projects": 1,
+      "issues": 4,
+      "incidents": 19,
+      "effort": 19
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 1,
+        "Optional": 0,
+        "Potential": 18,
+        "Information": 0
+      },
+      "category": {
+        "NuGet": 6,
+        "Project": 1,
+        "Api": 12
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+      "startingProject": true,
+      "issues": 4,
+      "storyPoints": 19,
+      "properties": {
+        "appName": "CommunityEventScheduler",
+        "projectKind": "AspNetCore",
+        "frameworks": [
+          "net10.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "isTestProject": false,
+        "numberOfFiles": 122,
+        "numberOfCodeFiles": 116,
+        "linesTotal": 9955,
+        "linesOfCode": 9066,
+        "totalApiScanned": 32473,
+        "minLinesOfCodeToChange": 12,
+        "maxLinesOfCodeToChange": 12
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "70fb1081-2916-452c-a911-63b50324b026",
+          "ruleId": "NuGet.0002",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore 10.0.15",
+              "protected": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore 10.0.15"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+            "snippet": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore 10.0.15",
+            "protectedSnippet": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore 10.0.15",
+            "label": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore 10.0.12",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore",
+              "PackageVersion": "10.0.12",
+              "PackageNewVersion": "10.0.15",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "c9efbf98-5773-435b-9734-7a6788a598fa",
+          "ruleId": "NuGet.0002",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.15",
+              "protected": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.15"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+            "snippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.15",
+            "protectedSnippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.15",
+            "label": "Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.12",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageVersion": "10.0.12",
+              "PackageNewVersion": "10.0.15",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "7201fe38-ad75-42bf-a729-739e3ba7e410",
+          "ruleId": "NuGet.0002",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Identity.UI, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.UI, and replace with new package Microsoft.AspNetCore.Identity.UI 10.0.15",
+              "protected": "Microsoft.AspNetCore.Identity.UI, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.UI, and replace with new package Microsoft.AspNetCore.Identity.UI 10.0.15"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+            "snippet": "Microsoft.AspNetCore.Identity.UI, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.UI, and replace with new package Microsoft.AspNetCore.Identity.UI 10.0.15",
+            "protectedSnippet": "Microsoft.AspNetCore.Identity.UI, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.UI, and replace with new package Microsoft.AspNetCore.Identity.UI 10.0.15",
+            "label": "Microsoft.AspNetCore.Identity.UI 10.0.12",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.UI",
+              "PackageVersion": "10.0.12",
+              "PackageNewVersion": "10.0.15",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "98f48f26-65e8-44a3-ab89-bbd68de37af0",
+          "ruleId": "NuGet.0002",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Design, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.15",
+              "protected": "Microsoft.EntityFrameworkCore.Design, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.15"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Design, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.15",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Design, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.15",
+            "label": "Microsoft.EntityFrameworkCore.Design 10.0.12",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Design",
+              "PackageVersion": "10.0.12",
+              "PackageNewVersion": "10.0.15",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "fdac26f7-afaf-49c9-b919-c5e9c939f5a9",
+          "ruleId": "NuGet.0002",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.SqlServer, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.15",
+              "protected": "Microsoft.EntityFrameworkCore.SqlServer, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.15"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.SqlServer, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.15",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.SqlServer, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.15",
+            "label": "Microsoft.EntityFrameworkCore.SqlServer 10.0.12",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.SqlServer",
+              "PackageVersion": "10.0.12",
+              "PackageNewVersion": "10.0.15",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "d89e6394-00f5-40e5-942c-0dc4e07448f6",
+          "ruleId": "NuGet.0002",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Tools, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.15",
+              "protected": "Microsoft.EntityFrameworkCore.Tools, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.15"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Tools, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.15",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Tools, 10.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.15",
+            "label": "Microsoft.EntityFrameworkCore.Tools 10.0.12",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Tools",
+              "PackageVersion": "10.0.12",
+              "PackageNewVersion": "10.0.15",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "4b7582ca-8094-46fe-8697-ff0309b37a12",
+          "ruleId": "Project.0002",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net10.0\nRecommended target framework: net11.0",
+              "protected": "Current target framework: net10.0\nRecommended target framework: net11.0"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+            "snippet": "Current target framework: net10.0\nRecommended target framework: net11.0",
+            "protectedSnippet": "Current target framework: net10.0\nRecommended target framework: net11.0",
+            "properties": {
+              "CurrentTargetFramework": "net10.0",
+              "RecommendedTargetFramework": "net11.0"
+            }
+          }
+        },
+        {
+          "incidentId": "77ee22d3-1de2-4e87-93bf-a311b6297630",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "IdentityDbContext(options)",
+              "protected": "M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Data\\ApplicationDbContext.cs",
+            "snippet": "IdentityDbContext(options)",
+            "protectedSnippet": "M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)",
+            "label": "M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "488"
+            },
+            "line": 6,
+            "column": 88
+          }
+        },
+        {
+          "incidentId": "4417c980-e171-4b47-9146-1bbc02f1bb32",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "IdentityDbContext(options)",
+              "protected": "M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Data\\ApplicationDbContext.cs",
+            "snippet": "IdentityDbContext(options)",
+            "protectedSnippet": "M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)",
+            "label": "M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "488"
+            },
+            "line": 6,
+            "column": 88
+          }
+        },
+        {
+          "incidentId": "2bd1de37-ea3e-4174-9940-030ffcb26c92",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "IdentityDbContext",
+              "protected": "T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Data\\ApplicationDbContext.cs",
+            "snippet": "IdentityDbContext",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext",
+            "label": "T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "488"
+            },
+            "line": 6,
+            "column": 88
+          }
+        },
+        {
+          "incidentId": "dd09b198-3e7b-4923-bebc-31688c3f9109",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: Exception diagnostics are suppressed when IExceptionHandler.TryHandleAsync returns true ",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "app.UseExceptionHandler(\u0022/Home/Error\u0022);",
+              "protected": "M:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.String)"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Program.cs",
+            "snippet": "app.UseExceptionHandler(\u0022/Home/Error\u0022);",
+            "protectedSnippet": "M:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.String)",
+            "label": "M:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.String)",
+            "properties": {
+              "CharCount": "3632"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/aspnet-core/10/exception-handler-diagnostics-suppressed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 94,
+            "column": 4
+          }
+        },
+        {
+          "incidentId": "8a889b85-a97c-4508-945b-a7f32e6eff72",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "app.UseMigrationsEndPoint();",
+              "protected": "T:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Program.cs",
+            "snippet": "app.UseMigrationsEndPoint();",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions",
+            "label": "T:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "3632"
+            },
+            "line": 90,
+            "column": 4
+          }
+        },
+        {
+          "incidentId": "92365f6b-26e4-477b-9f51-771fd3af6cb2",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "app.UseMigrationsEndPoint();",
+              "protected": "M:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions.UseMigrationsEndPoint(Microsoft.AspNetCore.Builder.IApplicationBuilder)"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Program.cs",
+            "snippet": "app.UseMigrationsEndPoint();",
+            "protectedSnippet": "M:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions.UseMigrationsEndPoint(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+            "label": "M:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions.UseMigrationsEndPoint(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "3632"
+            },
+            "line": 90,
+            "column": 4
+          }
+        },
+        {
+          "incidentId": "4ce1a1d3-9185-4615-8de9-e01ceee4bbee",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.UI, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.UI, 8.0.6",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services\r\n    .AddDefaultIdentity\u003CIdentityUser\u003E(options =\u003E\r\n        options.SignIn.RequireConfirmedAccount = true)\r\n    .AddRoles\u003CIdentityRole\u003E()\r\n    .AddEntityFrameworkStores\u003CApplicationDbContext\u003E();",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Program.cs",
+            "snippet": "builder.Services\r\n    .AddDefaultIdentity\u003CIdentityUser\u003E(options =\u003E\r\n        options.SignIn.RequireConfirmedAccount = true)\r\n    .AddRoles\u003CIdentityRole\u003E()\r\n    .AddEntityFrameworkStores\u003CApplicationDbContext\u003E();",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.UI",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "3632"
+            },
+            "line": 20,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "0d612b54-b1a6-4005-a975-27220c8d4c32",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.UI, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.UI, 8.0.6",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services\r\n    .AddDefaultIdentity\u003CIdentityUser\u003E(options =\u003E\r\n        options.SignIn.RequireConfirmedAccount = true)\r\n    .AddRoles\u003CIdentityRole\u003E()\r\n    .AddEntityFrameworkStores\u003CApplicationDbContext\u003E();",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity\u0060\u00601(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Identity.IdentityOptions})"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Program.cs",
+            "snippet": "builder.Services\r\n    .AddDefaultIdentity\u003CIdentityUser\u003E(options =\u003E\r\n        options.SignIn.RequireConfirmedAccount = true)\r\n    .AddRoles\u003CIdentityRole\u003E()\r\n    .AddEntityFrameworkStores\u003CApplicationDbContext\u003E();",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity\u0060\u00601(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Identity.IdentityOptions})",
+            "label": "M:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity\u0060\u00601(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Identity.IdentityOptions})",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.UI",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "3632"
+            },
+            "line": 20,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "e68319c1-ffc0-40a3-8022-37f1d40ff830",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services\r\n    .AddDefaultIdentity\u003CIdentityUser\u003E(options =\u003E\r\n        options.SignIn.RequireConfirmedAccount = true)\r\n    .AddRoles\u003CIdentityRole\u003E()\r\n    .AddEntityFrameworkStores\u003CApplicationDbContext\u003E();",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Program.cs",
+            "snippet": "builder.Services\r\n    .AddDefaultIdentity\u003CIdentityUser\u003E(options =\u003E\r\n        options.SignIn.RequireConfirmedAccount = true)\r\n    .AddRoles\u003CIdentityRole\u003E()\r\n    .AddEntityFrameworkStores\u003CApplicationDbContext\u003E();",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "3632"
+            },
+            "line": 20,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "048ee4c1-bc6c-4f84-8bd8-46461868419c",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services\r\n    .AddDefaultIdentity\u003CIdentityUser\u003E(options =\u003E\r\n        options.SignIn.RequireConfirmedAccount = true)\r\n    .AddRoles\u003CIdentityRole\u003E()\r\n    .AddEntityFrameworkStores\u003CApplicationDbContext\u003E();",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Program.cs",
+            "snippet": "builder.Services\r\n    .AddDefaultIdentity\u003CIdentityUser\u003E(options =\u003E\r\n        options.SignIn.RequireConfirmedAccount = true)\r\n    .AddRoles\u003CIdentityRole\u003E()\r\n    .AddEntityFrameworkStores\u003CApplicationDbContext\u003E();",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)",
+            "label": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "3632"
+            },
+            "line": 20,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "8bae7c00-6a63-4841-b04e-3d41a8a73194",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services.AddDatabaseDeveloperPageExceptionFilter();",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Program.cs",
+            "snippet": "builder.Services.AddDatabaseDeveloperPageExceptionFilter();",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "3632"
+            },
+            "line": 17,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "a45ac872-600d-4955-b262-9276e1df68c1",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6",
+          "projectPath": "CommunityEvenScheduler\\CommunityEventScheduler.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services.AddDatabaseDeveloperPageExceptionFilter();",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions.AddDatabaseDeveloperPageExceptionFilter(Microsoft.Extensions.DependencyInjection.IServiceCollection)"
+            },
+            "kind": "File",
+            "path": "CommunityEvenScheduler\\Program.cs",
+            "snippet": "builder.Services.AddDatabaseDeveloperPageExceptionFilter();",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions.AddDatabaseDeveloperPageExceptionFilter(Microsoft.Extensions.DependencyInjection.IServiceCollection)",
+            "label": "M:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions.AddDatabaseDeveloperPageExceptionFilter(Microsoft.Extensions.DependencyInjection.IServiceCollection)",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "3632"
+            },
+            "line": 17,
+            "column": 0
+          }
+        }
+      ],
+      "features": []
+    }
+  ],
+  "rules": {
+    "NuGet.0002": {
+      "id": "NuGet.0002",
+      "isFeature": false,
+      "description": "NuGet package upgrade is recommended for selected target framework.\n\nStandard .NET packages are recommended to have versions matching version of .NET that project targets.\n\nSome other packages also are known to work better for selected target frameworks.",
+      "label": "NuGet package upgrade is recommended",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262530",
+          "isCustom": false
+        }
+      ]
+    },
+    "Project.0002": {
+      "id": "Project.0002",
+      "isFeature": false,
+      "description": "Project\u0027s target framework(s) needs to be changed to the new target framework that you selected for this upgrade.\n\nDuring upgrade target framework will be adjusted to corresponding platform when applicable. In some cases project would result in multiple target frameworks after the upgrade if it was using features that now have their own platforms in modern .NET frameworks (windows, iOS, Android etc).",
+      "label": "Project\u0027s target framework(s) needs to be changed",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Overview of porting from .NET Framework to .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET project SDKs",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0002": {
+      "id": "Api.0002",
+      "isFeature": false,
+      "description": "API is source incompatible for selected .NET version: requires code changes to compile successfully when targeting a new version, such as removing obsolete APIs or changing method signatures.",
+      "label": "Source incompatible for selected .NET version",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Breaking changes in .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262679",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0003": {
+      "id": "Api.0003",
+      "isFeature": false,
+      "description": "API has a behavioral change in selected .NET version: code and binaries may behave differently at runtime without needing recompilation, but the new behavior might be undesirable and require updates.",
+      "label": "Behavioral change in selected .NET version",
+      "severity": "Potential",
+      "effort": 1
+    }
+  }
+}
